@@ -9,31 +9,32 @@
 </head>
 <body>
   <div class="background">
-    <div class="math-image"></div> <!-- For the background image -->
+    <div class="math-image"></div>
     <div class="calculator">
-    <div class="display" id="display">0</div>
-    <button class="btn" id="btn-7">7</button>
-    <button class="btn" id="btn-8">8</button>
-    <button class="btn" id="btn-9">9</button>
-    <button class="btn" id="btn-add">+</button>
-    <button class="btn" id="btn-4">4</button>
-    <button class="btn" id="btn-5">5</button>
-    <button class="btn" id="btn-6">6</button>
-    <button class="btn" id="btn-subtract">-</button>
-    <button class="btn" id="btn-1">1</button>
-    <button class="btn" id="btn-2">2</button>
-    <button class="btn" id="btn-3">3</button>
-    <button class="btn" id="btn-multiply">*</button>
-    <button class="btn" id="btn-clear">C</button>
-    <button class="btn" id="btn-0">0</button>
-    <button class="btn" id="btn-equal">=</button>
-    <button class="btn" id="btn-divide">/</button>
-    <button class="btn" id="btn-log">log</button>
-    <button class="btn" id="btn-sin">sin</button>
-    <button class="btn" id="btn-cos">cos</button>
-    <button class="btn" id="btn-sqrt">√</button>
+      <div class="display" id="display">0</div>
+      <button class="btn" id="btn-7">7</button>
+      <button class="btn" id="btn-8">8</button>
+      <button class="btn" id="btn-9">9</button>
+      <button class="btn" id="btn-add">+</button>
+      <button class="btn" id="btn-4">4</button>
+      <button class="btn" id="btn-5">5</button>
+      <button class="btn" id="btn-6">6</button>
+      <button class="btn" id="btn-subtract">-</button>
+      <button class="btn" id="btn-1">1</button>
+      <button class="btn" id="btn-2">2</button>
+      <button class="btn" id="btn-3">3</button>
+      <button class="btn" id="btn-multiply">*</button>
+      <button class="btn" id="btn-clear">C</button>
+      <button class="btn" id="btn-0">0</button>
+      <button class="btn" id="btn-equal">=</button>
+      <button class="btn" id="btn-divide">/</button>
+      <button class="btn" id="btn-log">log</button>
+      <button class="btn" id="btn-sin">sin</button>
+      <button class="btn" id="btn-cos">cos</button>
+      <button class="btn" id="btn-sqrt">√</button>
+    </div>
+    <script src="script.js"></script>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>
 
@@ -95,11 +96,9 @@ body {
   }
 
 //JS
-
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
 
-// Initialize variables
 let currentInput = "0";
 let operator = "";
 let firstOperand = 0;
@@ -108,12 +107,11 @@ function updateDisplay() {
   display.textContent = currentInput;
 }
 
-// Eevnt listeners
-buttons.forEach((button) => {
+buttons.forEach((button) => {       //Listeners
   button.addEventListener("click", () => {
     const buttonText = button.textContent;
 
-    // Handle digit buttons
+
     if (!isNaN(buttonText) || buttonText === ".") {
       if (currentInput === "0") {
         currentInput = buttonText;
@@ -123,14 +121,11 @@ buttons.forEach((button) => {
       updateDisplay();
     }
 
-    // Handle operator buttons
-    if (buttonText === "+" || buttonText === "-" || buttonText === "*" || buttonText === "/") {
+    if (["+", "-", "*", "/"].includes(buttonText)) {
       operator = buttonText;
       firstOperand = parseFloat(currentInput);
       currentInput = "0";
     }
-
-    // Handle clear button
     if (buttonText === "C") {
       currentInput = "0";
       operator = "";
@@ -140,48 +135,41 @@ buttons.forEach((button) => {
 
     if (buttonText === "=") {
       const secondOperand = parseFloat(currentInput);
-      if (operator === "+") {
-        currentInput = (firstOperand + secondOperand).toString();
-      } else if (operator === "-") {
-        currentInput = (firstOperand - secondOperand).toString();
-      } else if (operator === "*") {
-        currentInput = (firstOperand * secondOperand).toString();
-      } else if (operator === "/") {
-        currentInput = (firstOperand / secondOperand).toString();
+      switch (operator) {
+        case "+":
+          currentInput = (firstOperand + secondOperand).toString();
+          break;
+        case "-":
+          currentInput = (firstOperand - secondOperand).toString();
+          break;
+        case "*":
+          currentInput = (firstOperand * secondOperand).toString();
+          break;
+        case "/":
+          currentInput = (firstOperand / secondOperand).toString();
+          break;
       }
       updateDisplay();
       operator = "";
       firstOperand = 0;
-      // ... existing code ...
+    }
 
-// scientific operations
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const buttonText = button.textContent;
-  
-      // Handle scientific operations
-      if (buttonText === "log") {
-        currentInput = Math.log10(parseFloat(currentInput)).toString();
-        updateDisplay();
+    if (["log", "sin", "cos", "√"].includes(buttonText)) {      //few trigonometric calculation
+      switch (buttonText) {
+        case "log":
+          currentInput = Math.log10(parseFloat(currentInput)).toString();
+          break;
+        case "sin":
+          currentInput = Math.sin(parseFloat(currentInput)).toString();
+          break;
+        case "cos":
+          currentInput = Math.cos(parseFloat(currentInput)).toString();
+          break;
+        case "√":
+          currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+          break;
       }
-  
-      if (buttonText === "sin") {
-        currentInput = Math.sin(parseFloat(currentInput)).toString();
-        updateDisplay();
-      }
-  
-      if (buttonText === "cos") {
-        currentInput = Math.cos(parseFloat(currentInput)).toString();
-        updateDisplay();
-      }
-  
-      if (buttonText === "√") {
-        currentInput = Math.sqrt(parseFloat(currentInput)).toString();
-        updateDisplay();
-      }
-    });
-  });
-  
+      updateDisplay();      
     }
   });
 });
