@@ -1,0 +1,131 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    font-size: 16px;
+    overflow-y: auto;
+    background: linear-gradient(#f2e5e5, #c7d062);
+    text-align: center;
+    font: 24px 'Algerian', sans-serif;
+    color: rgb(121, 67, 103);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Adjust as needed */
+    }
+}
+  
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    position: relative;
+  }
+  .social-icons {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: flex;
+    align-items: center;
+  } 
+  .social-icons a {
+    margin-right: 2px;
+  }
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+  }
+  .content {
+    flex-grow: 1;
+  }
+  p {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin: 1em 0;
+    opacity: 0;
+    animation: fadedown .5s ease-in-out;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+  }
+  .content p,
+  .content h1 {
+      animation-delay: 0.5s; /* Delay the animation slightly */
+  }
+  
+  h1 {
+    color: #f10da9;
+    font-family: 'squada one';
+    text-transform: uppercase;
+    font-size: 72px;
+    text-shadow: 0 3px rgb(12, 12, 12);
+    margin: 0;
+    transform: scale(0);
+    animation: zoomin 1s ease-in-out;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+  }
+  
+  h1 span {
+    display: inline-block;
+  }
+  
+  @keyframes zoomin {
+    0% {
+      transform: scale(0);
+    }
+    90% {
+      transform: scale(1.1);
+    }
+    95% {
+      transform: scale(1.07);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadedown {
+    0% {
+      opacity: 0;
+      transform: translate3d(0,-10px,0);
+    }
+    90% {
+      transform: translate3d(0,1px,0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0,0,0);
+    }
+  }
+
+  .image-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0 50px;
+  }
+  
+  .image-row img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 10px;
+  }
+  .image-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+  
